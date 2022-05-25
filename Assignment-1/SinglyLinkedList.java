@@ -226,6 +226,75 @@ public class SinglyLinkedList {
 		return currHead;
 	}
 	
+	public SinglyLinkedList reverseLinkedList(SinglyLinkedList input) {
+		SinglyLinkedList output = new SinglyLinkedList();
+		
+		//Iterative Solution
+		/*
+		Node prev = null;
+		Node curr = input.head;
+		Node next = null;
+		
+		while(curr != null) {
+			next = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = next;
+		}
+		//prev will represent the head of the list
+		
+		
+		while(prev != null) {
+			output.push(prev);
+			prev = curr;
+		}
+		
+		output.printList();
+		*/
+		
+		
+		//Stack Solution - I personally find this method more intuitive
+		/*
+		Stack box = new Stack();
+		Node currNode = input.head;
+		
+		while(currNode != null) {
+			box.push(currNode);
+			currNode = currNode.next;
+		}
+		
+		while (!box.isEmpty()) {
+			output.push((Node)box.pop());
+		}
+		output.printList();
+		*/
+		
+		//Recursive Solution
+		
+		Node currNode = input.head;
+		currNode = reverseNode(currNode);
+		output.push(currNode);
+	
+		
+		output.printList();
+		
+		return output;
+	}
+
+	private Node reverseNode(Node node) {
+		Node currHead;
+		
+		if(node.next == null) {
+			return node;
+		}
+		
+		currHead = reverseNode(node.next);
+		
+		node.next.next = node;
+		node.next = null;
+		return currHead;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		SinglyLinkedList list1 = new SinglyLinkedList();
@@ -237,7 +306,16 @@ public class SinglyLinkedList {
 
 		
 		
-		Node nine = list1.new Node(9);
+		list1.push(one);
+		list1.push(two);
+		list1.push(three);
+		list1.push(four);
+		
+		
+		
+		list1.reverseLinkedList(list1);
+		
+		/*Node nine = list1.new Node(9);
 		
 		System.out.println("Testing push method");
 		list1.push(one);
